@@ -42,15 +42,23 @@ from CPG_lib.MLMPCPG.MLMPCPG import *
 from CPG_lib.MLMPCPG.myPloting import *
 from CPG_lib.MLMPCPG.SetTiming import *
 
+# update frequeny, amplitude and learnrate
+# of the reservoir
+Wi.eta = sys.argv[2]
+pop.f = sys.argv[3]
+pop.A = sys.argv[4]
+
+# get the random state of numpy
+randomstate = np.random.get_state
 
 # Prepare save directory
-folder_net = './results/network_g' + str(num_goals) + '_run'
+folder_net = './results/network_g' + str(num_goals) + "/eta_" + sys.argv[2] + "/frequency_" + sys.argv[3] + "/amplitude_" + sys.argv[4] + '/run'
 if len(sys.argv) > 1:
     folder_net += '_' + sys.argv[1]
 Path(folder_net).mkdir(parents=True, exist_ok=True)
 
 # Compile the network
-compile(directory="./annarchy/run_" + sys.argv[1])
+compile(directory="./annarchy/eta_" + sys.argv[2] + "/frequency_" + sys.argv[3] + "/amplitude_" + sys.argv[4] + "/run_" + sys.argv[1])
 
 # Initialize robot connection
 sys.path.append('../../CPG_lib/MLMPCPG')
@@ -232,12 +240,13 @@ for t in range(num_trials):
 
 
 ## Save network data
-np.save(folder_net + '/error_' + str(num_goals) + '.npy', error_history)
+np.save(folder_net + 'error_.npy', error_history)
 
 # Save data
-np.save(folder_net + '/parameter_' + str(num_goals) + '.npy' ,parameter)
-np.save(folder_net + '/goals.npy', goal_history)
-np.save(folder_net + '/goal_per_trial.npy', goal_per_trial)
+np.save(folder_net + 'parameter_.npy' ,parameter)
+np.save(folder_net + 'goals.npy', goal_history)
+np.save(folder_net + 'goal_per_trial.npy', goal_per_trial)
+np.save(folder_net + 'random_state.npy', randomstate)
 # np.save(folder_net + '/fin_pos_trials.npy', fin_pos_trials)
 # np.save(folder_net + '/init_pos_trials.npy', init_pos_trials)
 # np.save(folder_net + '/init_angles_trials.npy', init_angles)
