@@ -6,13 +6,13 @@ import sys
 num_trials = 5
 
 prcs = []
-#max_prcs_count = 5
-max_concurrent_processes = 15
+max_prcs_count = 5
+#max_concurrent_processes = 15
 
 learnrates = [0.01,0.1,0.2,0.4,0.8]
 
 
-
+"""
 def run_trial(args):
     idx, learnrate, frequency, amplitude = args
     return Popen(['python3', 'run_reaching.py', str(idx), str(learnrate), str(frequency), str(amplitude)])
@@ -29,7 +29,8 @@ try:
 
 except KeyboardInterrupt:
     print("Interrupted")
-    sys.exit(1)
+    for process in processes:
+        process.terminate()
 
 """
 try:
@@ -52,4 +53,4 @@ except KeyboardInterrupt:
     print("interrupted")
     for process in prcs:
         process.terminate()
-"""
+
