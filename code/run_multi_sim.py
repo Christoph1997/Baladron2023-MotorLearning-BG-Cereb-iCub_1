@@ -6,11 +6,11 @@ import sys
 num_trials = 5
 
 prcs = []
-max_prcs_count = 5
-#max_concurrent_processes = 15
+#max_prcs_count = 5
+max_concurrent_processes = 15
 
 learnrates = [0.01,0.1,0.2,0.4,0.8]
-
+"""
 try:
     for learnrate in learnrates:
         for frequency in range(1,7,2):
@@ -52,4 +52,3 @@ except KeyboardInterrupt:
     for process in processes:
         process.terminate()
 
-"""
