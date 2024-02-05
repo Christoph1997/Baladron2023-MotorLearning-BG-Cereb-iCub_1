@@ -56,7 +56,7 @@ Path(folder_net).mkdir(parents=True, exist_ok=True)
 
 # get the random state of numpy
 randomstate = np.random.get_state
-with open(folder_net + "randomstate", "w") as f:
+with open(folder_net + "randomstate", "wb") as f:
     pickle.dump(randomstate, f)
 
 # Compile the network
