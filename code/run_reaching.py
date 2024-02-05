@@ -25,6 +25,7 @@ import importlib
 import sys
 import time
 import numpy as np
+import pickle
 from pathlib import Path
 
 # ANNarchy
@@ -44,21 +45,22 @@ from CPG_lib.MLMPCPG.SetTiming import *
 
 # update frequeny, amplitude and learnrate
 # of the reservoir
-Wi.eta = sys.argv[2]
-pop.f = sys.argv[3]
-pop.A = sys.argv[4]
+Wrec.eta = float(sys.argv[2])
+pop.f = float(sys.argv[3])
+pop.A = float(sys.argv[4])
+
+# Prepare save directory
+sub_folder = "/eta_" + sys.argv[2] + "_frequency_" + sys.argv[3] + "_amplitude_" + sys.argv[4] + "/run_" + sys.argv[1]
+folder_net = "./results" + sub_folder
+Path(folder_net).mkdir(parents=True, exist_ok=True)
 
 # get the random state of numpy
 randomstate = np.random.get_state
-
-# Prepare save directory
-folder_net = './results/network_g' + str(num_goals) + "/eta_" + sys.argv[2] + "/frequency_" + sys.argv[3] + "/amplitude_" + sys.argv[4] + '/run'
-if len(sys.argv) > 1:
-    folder_net += '_' + sys.argv[1]
-Path(folder_net).mkdir(parents=True, exist_ok=True)
+with open(folder_net + "randomstate", "w") as f:
+    pickle.dump(randomstate, f)
 
 # Compile the network
-directory_ann ="./annarchy/eta_" + sys.argv[2] + "/frequency_" + sys.argv[3] + "/amplitude_" + sys.argv[4] + "/run_" + sys.argv[1]
+directory_ann = "./annarchy" + sub_folder
 Path(directory_ann).mkdir(parents=True, exist_ok=True)
 compile(directory=directory_ann)
 
@@ -248,7 +250,6 @@ np.save(folder_net + 'error_.npy', error_history)
 np.save(folder_net + 'parameter_.npy' ,parameter)
 np.save(folder_net + 'goals.npy', goal_history)
 np.save(folder_net + 'goal_per_trial.npy', goal_per_trial)
-np.save(folder_net + 'random_state.npy', randomstate)
 # np.save(folder_net + '/fin_pos_trials.npy', fin_pos_trials)
 # np.save(folder_net + '/init_pos_trials.npy', init_pos_trials)
 # np.save(folder_net + '/init_angles_trials.npy', init_angles)
