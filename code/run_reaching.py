@@ -52,7 +52,7 @@ pop.A = sys.argv[4]
 randomstate = np.random.get_state
 
 # Prepare save directory
-folder_net = '/results/network_g' + str(num_goals) + "/eta_" + sys.argv[2] + "/frequency_" + sys.argv[3] + "/amplitude_" + sys.argv[4] + '/run'
+folder_net = './results/network_g' + str(num_goals) + "/eta_" + sys.argv[2] + "/frequency_" + sys.argv[3] + "/amplitude_" + sys.argv[4] + '/run'
 if len(sys.argv) > 1:
     folder_net += '_' + sys.argv[1]
 Path(folder_net).mkdir(parents=True, exist_ok=True)
