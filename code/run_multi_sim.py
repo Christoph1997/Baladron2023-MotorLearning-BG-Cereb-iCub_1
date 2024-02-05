@@ -23,8 +23,10 @@ try:
                         ret = prcs[0].wait()
                         if type(ret) == int:
                             prcs.pop(0)
-                for process in prcs:
-                    process.wait()
+
+                if len(prcs) >= max_prcs_count:
+                    for process in prcs:
+                        process.wait()
 
 except KeyboardInterrupt:
     print("interrupted")
