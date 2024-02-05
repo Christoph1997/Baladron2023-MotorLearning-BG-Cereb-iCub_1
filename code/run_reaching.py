@@ -15,7 +15,7 @@ Script for the reaching task.
 """
 
 # Parameters
-num_goals = 2 # Number of goals. 2 or 8 in the manuscript
+num_goals = 8 # Number of goals. 2 or 8 in the manuscript
 num_goals_per_trial = 300 # Number of trials per goal
 num_trials_test = 100 # Number of test trials with the reservoir
 
