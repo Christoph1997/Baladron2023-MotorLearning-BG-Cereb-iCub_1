@@ -82,13 +82,13 @@ pop[11].constant = -1.0
 pop.x = Uniform(-0.1, 0.1)
 
 # Input weights
-Wi = Projection(inp, pop, 'in')
+Wi = Projection(inp, pop, 'in', name="w_input")
 Wi.connect_all_to_all(weights=Uniform(-0.2, 0.2))
 
 
 # Recurrent weights
 g = 1.0 
-Wrec = Projection(pop, pop,'exc', TraceMiconi)  
+Wrec = Projection(pop, pop,'exc', TraceMiconi, name="w_lat_res")
 Wrec.connect_all_to_all(weights=Normal(0., g/np.sqrt(N)), allow_self_connections=True)
 
 

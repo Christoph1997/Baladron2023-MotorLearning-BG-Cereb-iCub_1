@@ -15,9 +15,9 @@ Script for the reaching task.
 """
 
 # Parameters
-num_goals = 8 # Number of goals. 2 or 8 in the manuscript
-num_goals_per_trial = 300 # Number of trials per goal
-num_trials_test = 100 # Number of test trials with the reservoir
+num_goals = 1 # Number of goals. 2 or 8 in the manuscript
+num_goals_per_trial = 3 # Number of trials per goal
+num_trials_test = 3# Number of test trials with the reservoir
 
 
 # Basic imports
@@ -25,6 +25,8 @@ import importlib
 import sys
 import time
 import numpy as np
+np.random.seed(int(sys.argv[1]))
+
 import pickle
 from pathlib import Path
 
@@ -36,6 +38,7 @@ setup(num_threads=2)
 from reservoir import *
 from kinematic import *
 from train_BG_reaching import *
+from monitoring import Con_Monitor
 
 # CPG
 import CPG_lib.parameter as params
@@ -59,10 +62,15 @@ randomstate = np.random.get_state
 with open(folder_net + "randomstate", "wb") as f:
     pickle.dump(randomstate, f)
 
+
 # Compile the network
 directory_ann = "./annarchy" + sub_folder
 Path(directory_ann).mkdir(parents=True, exist_ok=True)
 compile(directory=directory_ann)
+
+# init monitor for tracking weight changes
+con_monitor = Con_Monitor([Wi, Wrec])
+con_monitor.extract_weights()
 
 # Initialize robot connection
 sys.path.append('../../CPG_lib/MLMPCPG')
@@ -250,6 +258,11 @@ np.save(folder_net + 'error_.npy', error_history)
 np.save(folder_net + 'parameter_.npy' ,parameter)
 np.save(folder_net + 'goals.npy', goal_history)
 np.save(folder_net + 'goal_per_trial.npy', goal_per_trial)
+
+# extract and save weight after learning
+con_monitor.extract_weights()
+con_monitor.save_cons(folder=folder_net)
+
 # np.save(folder_net + '/fin_pos_trials.npy', fin_pos_trials)
 # np.save(folder_net + '/init_pos_trials.npy', init_pos_trials)
 # np.save(folder_net + '/init_angles_trials.npy', init_angles)
