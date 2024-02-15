@@ -15,9 +15,9 @@ Script for the reaching task.
 """
 
 # Parameters
-num_goals = 1 # Number of goals. 2 or 8 in the manuscript
-num_goals_per_trial = 3 # Number of trials per goal
-num_trials_test = 3# Number of test trials with the reservoir
+num_goals = 4  # Number of goals. 2 or 8 in the manuscript
+num_goals_per_trial = 300  # Number of trials per goal
+num_trials_test = 100  # Number of test trials with the reservoir
 
 
 # Basic imports
@@ -53,7 +53,7 @@ pop.f = float(sys.argv[3])
 pop.A = float(sys.argv[4])
 
 # Prepare save directory
-sub_folder = "/eta_" + sys.argv[2] + "_frequency_" + sys.argv[3] + "_amplitude_" + sys.argv[4] + "/run_" + sys.argv[1]
+sub_folder = "/eta_" + sys.argv[2] + "_frequency_" + sys.argv[3] + "_amplitude_" + sys.argv[4] + "/run_" + sys.argv[1] + "/"
 folder_net = "./results" + sub_folder
 Path(folder_net).mkdir(parents=True, exist_ok=True)
 
@@ -255,7 +255,7 @@ for t in range(num_trials):
 np.save(folder_net + 'error_.npy', error_history)
 
 # Save data
-np.save(folder_net + 'parameter_.npy' ,parameter)
+np.save(folder_net + 'parameter_.npy', parameter)
 np.save(folder_net + 'goals.npy', goal_history)
 np.save(folder_net + 'goal_per_trial.npy', goal_per_trial)
 

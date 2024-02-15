@@ -7,12 +7,12 @@ import sys
 from reservoir import Wrec, Wi, inp
 
 sim_id = 1
-eta = 0.8
-frequency = 8
-A = 20
+eta = 1
+frequency = 1
+A = 1
 
 # weights are saved in ...
-sub_folder = "/eta_" + str(eta) + "_frequency_" + str(frequency) + "_amplitude_" + str(A) + "/run_" + str(sim_id)
+sub_folder = "/eta_" + str(eta) + "_frequency_" + str(frequency) + "_amplitude_" + str(A) + "/run_" + str(sim_id) + "/"
 folder_net = "./results" + sub_folder
 # plots will be saved in ...
 plot_folder = "plots" + sub_folder
@@ -20,8 +20,8 @@ if not os.path.exists(plot_folder):
     os.makedirs(plot_folder)
 
 weights = {
-    Wi.name: np.load(folder_net + "/" + Wi.name + ".npy"),
-    Wrec.name: np.load(folder_net + "/" + Wrec.name + ".npy")
+    Wi.name: np.load(folder_net + "w_" + Wi.name + ".npy"),
+    Wrec.name: np.load(folder_net + "w_" + Wrec.name + ".npy")
 }
 
 # reservoir weights
@@ -39,7 +39,7 @@ plt.close(fig1)
 # input weights
 fig2 = plt.figure(figsize=(8, 10))
 
-n_parameters = inp.geometry
+n_parameters = 9
 
 for parameter in range(n_parameters):
     ax = plt.subplot(3, 3, 1 + parameter)
