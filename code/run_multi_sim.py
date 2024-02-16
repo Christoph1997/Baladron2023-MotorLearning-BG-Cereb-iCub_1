@@ -8,12 +8,12 @@ num_trials = 5
 prcs = []
 max_prcs_count = 15
 
-learnrates = [0.01,0.1,0.2,0.4,0.8]
+learnrates = [0.8, 0.4, 0.2, 0.1, 0.01]
 
 try:
     for learnrate in learnrates:
-        for frequency in range(1,7,2):
-            for amplitude in range(4,20,4):
+        for frequency in range(1,8,2):
+            for amplitude in range(4,21,4):
                 idx = 0
                 while(idx < num_trials):
                     if len(prcs) < max_prcs_count:
