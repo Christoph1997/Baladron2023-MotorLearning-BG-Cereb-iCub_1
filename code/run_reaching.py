@@ -169,7 +169,7 @@ dh = np.zeros(num_trials)
 # BG controller
 ###################
 print('Training BG')
-goal_history, parameter_history = train_bg(num_goals)
+goal_history, parameter_history, bg_error = train_bg(num_goals)
 
 # Compute the mean reward per trial
 R_mean = np.zeros(num_goals)
@@ -258,6 +258,7 @@ np.save(folder_net + 'error_.npy', error_history)
 np.save(folder_net + 'parameter_.npy', parameter)
 np.save(folder_net + 'goals.npy', goal_history)
 np.save(folder_net + 'goal_per_trial.npy', goal_per_trial)
+np.save(folder_net + 'error_bg.npy', bg_error)
 
 # extract and save weight after learning
 con_monitor.extract_weights()

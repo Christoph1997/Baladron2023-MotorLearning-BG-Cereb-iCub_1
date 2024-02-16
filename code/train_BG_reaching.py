@@ -334,10 +334,7 @@ def train_bg(nt):
 
         error_history[trial] = np.linalg.norm(final_pos-goal)
 
-
-    np.save('error_history_bg_reach_' + str(nt) + '_' + str(num_trials_test) + '.npy',error_history)
-
-    return goals, parameter_history
+    return goals, parameter_history, error_history
 
 
 

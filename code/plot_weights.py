@@ -4,12 +4,12 @@ import matplotlib.pyplot as plt
 import os
 import sys
 
-from reservoir import Wrec, Wi, inp
+from reservoir import Wrec, Wi
 
 sim_id = 1
-eta = 1
-frequency = 1
-A = 1
+eta = 0.5
+frequency = 10
+A = 20
 
 # weights are saved in ...
 sub_folder = "/eta_" + str(eta) + "_frequency_" + str(frequency) + "_amplitude_" + str(A) + "/run_" + str(sim_id) + "/"
@@ -30,7 +30,7 @@ axs[0].imshow(weights[Wrec.name][0, :, :], cmap='RdBu', vmin=-0.1, vmax=0.1)
 axs[0].set_title("Init")
 axs[1].imshow(weights[Wrec.name][1, :, :], cmap='RdBu', vmin=-0.1, vmax=0.1)
 axs[1].set_title("After Learning")
-axs[2].imshow(weights[Wrec.name][1, :, :] - weights['w_lat_res'][0, :, :], cmap='RdBu', vmin=-0.05, vmax=0.05)
+axs[2].imshow(weights[Wrec.name][1, :, :] - weights[Wrec.name][0, :, :], cmap='RdBu', vmin=-0.05, vmax=0.05)
 axs[2].set_title("Weight changes")
 
 plt.savefig(plot_folder + f"weight_changes_sim{sim_id}.pdf")
