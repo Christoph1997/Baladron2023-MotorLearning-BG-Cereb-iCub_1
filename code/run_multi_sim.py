@@ -6,7 +6,7 @@ import sys
 num_trials = 5
 
 prcs = []
-max_prcs_count = 15
+max_prcs_count = 25
 
 learnrates = [0.8, 0.4, 0.2, 0.1, 0.01]
 
