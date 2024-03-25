@@ -35,7 +35,7 @@ from pathlib import Path
 
 # Import ANNarchy
 from ANNarchy import *
-setup(num_threads=2)
+setup(num_threads=3)
 
 # Model
 from reservoir import *
@@ -144,7 +144,7 @@ def gaussian_input(x,mu,sig):
 
 
 #TODO:is it right that way?
-#hc_goals = [ [0.3286242/2.,  0.33601961/2., 0.55/2.], [-0.8713758/2.,   0.3360196/2.,  0.55/2.]] 
+hc_goals = [ [0.3286242/2.,  0.33601961/2., 0.55/2.], [-0.8713758/2.,   0.3360196/2.,  0.55/2.]] 
 
 max_angle = 0
 num_tests = 0
@@ -160,8 +160,8 @@ angle_history3 = np.zeros(num_baseline_trials+num_trials+num_test_trials)
 #error_historyP = np.zeros(num_trials+10)
 
 #TODO:is it right that way?
-#dh = np.zeros(num_trials) 
-
+dh = np.zeros(num_trials) 
+print(initial_position)
 ###################
 # BG controller
 ###################
@@ -198,6 +198,9 @@ def project_onto_plane(x, n):
 StrD1SNc_put.disable_learning()
 
 #TODO: rotation, in our case by 5, 10, 15, 20 degrees --> DONE
+print(initial_position)
+print(goal_history[0])
+print(goal_history)
 perpendicular_vector = np.cross(initial_position, goal_history[0])
 perpendicular_normalized = perpendicular_vector/np.linalg.norm(perpendicular_vector)
 rot5 = rotation_matrix( perpendicular_vector  ,np.radians(5))
@@ -218,10 +221,8 @@ alpha = 0.33 #0.75 0.33
 
 for t in range(num_baseline_trials+num_trials+num_test_trials):
 
-    # Select goal
-    goal_id = t % num_goals
-    if(t>num_baseline_trials):
-        goal_id = 0
+    # TODO: Select correct goal, we only have 1, so its always goal 0 --> DONE
+    goal_id = 0
     current_goal = goal_history[goal_id]
 
     # Reinitialize reservoir
@@ -247,6 +248,7 @@ for t in range(num_baseline_trials+num_trials+num_test_trials):
     current_params =  np.copy(parameter_history[goal_id])
 
     # Turn this on for simulations with strategy
+    # we only learn in the cerebellum for the adaptation
     #TODO: We don't need the if-statement for the strategy,, since we only have one goal and strategy is always 0 --> DONE
     #TODO: We need to adapt it like with the rotation that we only change current_params for the ones that are actually changing. --> DONE
     #TODO: Use the correct parameter_history for the rotation --> DONE
