@@ -29,6 +29,7 @@ import importlib
 import sys
 import time
 import numpy as np
+import copy
 #compile()
 #setup(num_threads=2)
 
@@ -231,7 +232,7 @@ def rotation_matrix(axis, theta):
 
 def train_bg(nt):
     #TODO: initialise goal with a fixed goal in the middle of the work space of the icub --> DONE
-    goal = initial_position
+    goal = copy.deepcopy(initial_position)
     goal[0] = goal[0] - 0.1
 
     num_trials_test = 450
