@@ -161,7 +161,6 @@ angle_history3 = np.zeros(num_baseline_trials+num_trials+num_test_trials)
 
 #TODO:is it right that way?
 dh = np.zeros(num_trials) 
-print(initial_position)
 ###################
 # BG controller
 ###################
@@ -198,9 +197,6 @@ def project_onto_plane(x, n):
 StrD1SNc_put.disable_learning()
 
 #TODO: rotation, in our case by 5, 10, 15, 20 degrees --> DONE
-print(initial_position)
-print(goal_history[0])
-print(goal_history)
 perpendicular_vector = np.cross(initial_position, goal_history[0])
 perpendicular_normalized = perpendicular_vector/np.linalg.norm(perpendicular_vector)
 rot5 = rotation_matrix( perpendicular_vector  ,np.radians(5))
