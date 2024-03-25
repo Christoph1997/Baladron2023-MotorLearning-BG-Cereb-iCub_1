@@ -35,12 +35,12 @@ from pathlib import Path
 
 # Import ANNarchy
 from ANNarchy import *
-setup(num_threads=4)
+setup(num_threads=2)
 
 # Model
 from reservoir import *
 from kinematic import *
-from train_BG_adaptation import *
+from train_BG_calibration_todorov import *
 
 # CPG
 import CPG_lib.parameter as params
@@ -54,7 +54,7 @@ pop.f = 1.
 pop.A = 20.
 
 # Prepare save directory
-sub_folder = "/run_" + sys.argv[1] + "/"
+sub_folder = "/calibration_todorov/run_" + sys.argv[1] + "/"
 folder_net = "./results" + sub_folder
 Path(folder_net).mkdir(parents=True, exist_ok=True)
 
