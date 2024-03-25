@@ -35,7 +35,7 @@ from pathlib import Path
 
 # Import ANNarchy
 from ANNarchy import *
-setup(num_threads=3)
+setup(num_threads=10)
 
 # Model
 from reservoir import *
