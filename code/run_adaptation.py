@@ -14,6 +14,7 @@ Script for the adaptation task.
 > python run_adaptation.py
 """
 
+#TODO: Go down to a total of 150 trials with 50 baseline, 50 adapt and 50 post trials
 # Parameters
 num_goals = 2 # Number of goals. 2 or 8 in the manuscript
 num_goals_per_trial = 300 # Number of trials per goal
@@ -187,6 +188,7 @@ alpha = 0.33 #0.75 0.33
 
 for t in range(num_trials+num_rotation_trials+num_test_trials):
 
+    # TODO: Change to the new adaptation task from Todorov
     # Select goal
     goal_id = t % num_goals
     if(t>num_trials):
