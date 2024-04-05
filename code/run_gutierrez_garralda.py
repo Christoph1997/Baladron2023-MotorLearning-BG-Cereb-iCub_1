@@ -201,7 +201,7 @@ StrD1SNc_put.disable_learning()
 #TODO: shift-perturbation (translation), in our case by 30 degrees
 perpendicular_vector = np.cross(initial_position, goal_history[0])
 perpendicular_normalized = perpendicular_vector/np.linalg.norm(perpendicular_vector)
-rot30 = rotation_matrix( perpendicular_vector  ,np.radians(30))
+rot30 = rotation_matrix( perpendicular_vector  ,np.radians(-30))
 
 def angle_in_plane(v1,v2,n):
     dot = np.dot(v1,v2)
