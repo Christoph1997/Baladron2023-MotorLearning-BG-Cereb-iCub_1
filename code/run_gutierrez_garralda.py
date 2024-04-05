@@ -14,16 +14,6 @@ Script for the adaptation task.
 > python run_adaptation.py
 """
 
-#TODO: change num_actions in the Basalganglia to 100?
-#TODO: change number of trials to correct amounts --> DONE
-# Parameters
-num_goals = 2 # Number of goals
-num_baseline_trials = 525 # Number of trials for baseline phases + 500 training trials
-num_rotation_trials = 25 # Number of rotation trials for each visuomotor adaptation
-num_test_trials = 25 # Number of test trials at the end to finish
-strategy = 0 # Set to 1 to simulate a condition which includes an explicit instruction
-rotation = int(sys.argv[3]) # Set to 1 to simulate a condition in which the 30-degree shift perturbation is included and to 0 for the x-reflection perturbation
-
 # Imports
 import importlib
 import sys
@@ -33,6 +23,16 @@ from numpy import cross, eye, dot
 from scipy.linalg import expm, norm
 from monitoring import Con_Monitor
 from pathlib import Path
+
+#TODO: change num_actions in the Basalganglia to 100?
+#TODO: change number of trials to correct amounts --> DONE
+# Parameters
+num_goals = 2 # Number of goals
+num_baseline_trials = 525 # Number of trials for baseline phases + 500 training trials
+num_rotation_trials = 25 # Number of rotation trials for each visuomotor adaptation
+num_test_trials = 25 # Number of test trials at the end to finish
+strategy = 0 # Set to 1 to simulate a condition which includes an explicit instruction
+rotation = int(sys.argv[3]) # Set to 1 to simulate a condition in which the 30-degree shift perturbation is included and to 0 for the x-reflection perturbation
 
 # Import ANNarchy
 from ANNarchy import *
