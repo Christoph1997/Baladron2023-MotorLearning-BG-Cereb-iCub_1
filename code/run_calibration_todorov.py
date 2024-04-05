@@ -17,7 +17,7 @@ Script for the adaptation task.
 #TODO: change number of trials to correct amounts --> DONE
 # Parameters
 num_goals = 1 # Number of goals. Fixed to a certain position with 0.1m away from initial postion in x-direction
-num_baseline_trials = 200 # Number of trials for baseline phases
+num_baseline_trials = 700 # Number of trials for baseline phases + 500 training trials
 num_rotation_trials = 16 # Number of rotation trials for each visuomotor adaptation
 num_visuomotor_adaption = 26 #Number of visuomotor adaptations
 num_test_trials = 34 # Number of test trials at the end to finish
@@ -50,7 +50,7 @@ from CPG_lib.MLMPCPG.SetTiming import *
 
 # update frequeny, amplitude and learnrate of the reservoir
 Wrec.eta = 0.8
-pop.f = 1.
+pop.f = float(sys.argv[2])
 pop.A = 20.
 
 # Prepare save directory
@@ -199,15 +199,17 @@ StrD1SNc_put.disable_learning()
 #TODO: rotation, in our case by 5, 10, 15, 20 degrees --> DONE
 perpendicular_vector = np.cross(initial_position, goal_history[0])
 perpendicular_normalized = perpendicular_vector/np.linalg.norm(perpendicular_vector)
-rot5 = rotation_matrix( perpendicular_vector  ,np.radians(5))
-rot10 = rotation_matrix( perpendicular_vector  ,np.radians(10))
-rot15 = rotation_matrix( perpendicular_vector  ,np.radians(15))
-rot20 = rotation_matrix( perpendicular_vector  ,np.radians(20))
+rot5 = rotation_matrix( perpendicular_vector  ,np.radians(-5))
+rot10 = rotation_matrix( perpendicular_vector  ,np.radians(-10))
+rot15 = rotation_matrix( perpendicular_vector  ,np.radians(-15))
+rot20 = rotation_matrix( perpendicular_vector  ,np.radians(-20))
 
 def angle_in_plane(v1,v2,n):
     dot = np.dot(v1,v2)
     det = v1[0]*v2[1]*n[2] + v2[0]*n[1]*v1[2] + n[0]*v1[1]*v2[2]  - v1[2]*v2[1]*n[0] - v2[2]*n[1]*v1[0] - n[2]*v1[1]*v2[0]
     return np.arctan2(det,dot)
+
+angle_goal = np.degrees( angle_in_plane(initial_position, goal_history[0], perpendicular_normalized) )
 
 cerror = np.zeros(num_baseline_trials+num_trials+num_test_trials)
 
@@ -287,24 +289,24 @@ for t in range(num_baseline_trials+num_trials+num_test_trials):
     #TODO: Adapt to the new task of Todorov. Change every 16 trials rotation by 5 degrees fot hte first task.
     #      And after 48 trials by 20 degrees for the second task --> DONE
     # 1.Task
-    if(t>(num_baseline_trials+2*num_rotation_trials) and t<(num_baseline_trials+3*num_rotation_trials) ):
+    if(t>=(num_baseline_trials+2*num_rotation_trials) and t<(num_baseline_trials+3*num_rotation_trials) ):
         final_pos = np.dot(rot5,final_pos)
-    if(t>(num_baseline_trials+3*num_rotation_trials) and t<(num_baseline_trials+4*num_rotation_trials) ):
+    if(t>=(num_baseline_trials+3*num_rotation_trials) and t<(num_baseline_trials+4*num_rotation_trials) ):
         final_pos = np.dot(rot10,final_pos)
-    if(t>(num_baseline_trials+4*num_rotation_trials) and t<(num_baseline_trials+5*num_rotation_trials) ):
+    if(t>=(num_baseline_trials+4*num_rotation_trials) and t<(num_baseline_trials+5*num_rotation_trials) ):
         final_pos = np.dot(rot15,final_pos)
-    if(t>(num_baseline_trials+5*num_rotation_trials) and t<(num_baseline_trials+7*num_rotation_trials) ):
+    if(t>=(num_baseline_trials+5*num_rotation_trials) and t<(num_baseline_trials+7*num_rotation_trials) ):
         final_pos = np.dot(rot20,final_pos)
-    if(t>(num_baseline_trials+7*num_rotation_trials) and t<(num_baseline_trials+8*num_rotation_trials) ):
+    if(t>=(num_baseline_trials+7*num_rotation_trials) and t<(num_baseline_trials+8*num_rotation_trials) ):
         final_pos = np.dot(rot15,final_pos)
-    if(t>(num_baseline_trials+8*num_rotation_trials) and t<(num_baseline_trials+9*num_rotation_trials) ):
+    if(t>=(num_baseline_trials+8*num_rotation_trials) and t<(num_baseline_trials+9*num_rotation_trials) ):
         final_pos = np.dot(rot10,final_pos)
-    if(t>(num_baseline_trials+9*num_rotation_trials) and t<(num_baseline_trials+10*num_rotation_trials) ):
+    if(t>=(num_baseline_trials+9*num_rotation_trials) and t<(num_baseline_trials+10*num_rotation_trials) ):
         final_pos = np.dot(rot5,final_pos)
     #2.Task
-    if(t>(num_baseline_trials+16*num_rotation_trials) and t<(num_baseline_trials+19*num_rotation_trials) ):
+    if(t>=(num_baseline_trials+16*num_rotation_trials) and t<(num_baseline_trials+19*num_rotation_trials) ):
         final_pos = np.dot(rot20,final_pos)
-    if(t>(num_baseline_trials+21*num_rotation_trials) and t<(num_baseline_trials+24*num_rotation_trials) ):
+    if(t>=(num_baseline_trials+21*num_rotation_trials) and t<(num_baseline_trials+24*num_rotation_trials) ):
         final_pos = np.dot(rot20,final_pos)
 
 
@@ -364,6 +366,7 @@ for t in range(num_baseline_trials+num_trials+num_test_trials):
 
 
 np.save(folder_net + 'angle3.npy', angle_history3) # Directional error
+np.save(folder_net + 'goals_angle.npy', angle_goal) # Angle Goal
 np.save(folder_net + 'cerror.npy', cerror) # Aiming error
 
 

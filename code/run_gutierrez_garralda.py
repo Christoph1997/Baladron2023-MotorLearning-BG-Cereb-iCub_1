@@ -18,11 +18,11 @@ Script for the adaptation task.
 #TODO: change number of trials to correct amounts --> DONE
 # Parameters
 num_goals = 2 # Number of goals
-num_baseline_trials = 25 # Number of trials for baseline phases
+num_baseline_trials = 525 # Number of trials for baseline phases + 500 training trials
 num_rotation_trials = 25 # Number of rotation trials for each visuomotor adaptation
 num_test_trials = 25 # Number of test trials at the end to finish
 strategy = 0 # Set to 1 to simulate a condition which includes an explicit instruction
-rotation = 1 # Set to 1 to simulate a condition in which the 30-degree shift perturbation is included and to 0 for the x-reflection perturbation
+rotation = int(sys.argv[3]) # Set to 1 to simulate a condition in which the 30-degree shift perturbation is included and to 0 for the x-reflection perturbation
 
 # Imports
 import importlib
@@ -51,7 +51,7 @@ from CPG_lib.MLMPCPG.SetTiming import *
 
 # update frequeny, amplitude and learnrate of the reservoir
 Wrec.eta = 0.8
-pop.f = 1.
+pop.f = float(sys.argv[2])
 pop.A = 20.
 
 # Prepare save directory
@@ -145,7 +145,7 @@ def gaussian_input(x,mu,sig):
 
 
 #TODO:is it right that way?
-#hc_goals = [ [0.3286242/2.,  0.33601961/2., 0.55/2.], [-0.8713758/2.,   0.3360196/2.,  0.55/2.]] 
+hc_goals = [ [0.3286242/2.,  0.33601961/2., 0.55/2.], [-0.8713758/2.,   0.3360196/2.,  0.55/2.]] 
 
 max_angle = 0
 num_tests = 0
@@ -161,7 +161,7 @@ angle_history3 = np.zeros(num_baseline_trials+num_trials+num_test_trials)
 #error_historyP = np.zeros(num_trials+10)
 
 #TODO:is it right that way?
-#dh = np.zeros(num_trials) 
+dh = np.zeros(num_trials) 
 
 ###################
 # BG controller
@@ -265,10 +265,10 @@ for t in range(num_baseline_trials+num_trials+num_test_trials):
     #TODO: We need the if-statement for the rotation, since rotation defines which perturbation we apply--> DONE
     #TODO: Adapt to the new task of Gutierrez-Garralda mit shift-perturbation oder x-reflection perturbation
     if (rotation==1): #shift-perturbation
-        if(t>(num_baseline_trials) and t<(num_baseline_trials+num_rotation_trials) ):
+        if(t>=(num_baseline_trials) and t<(num_baseline_trials+num_rotation_trials) ):
             final_pos = np.dot(rot30,final_pos) 
     else: #x-reflection perturbation
-        if(t>(num_baseline_trials) and t<(num_baseline_trials+num_rotation_trials) ):
+        if(t>=(num_baseline_trials) and t<(num_baseline_trials+num_rotation_trials) ):
             final_pos = np.dot(rot30,final_pos) 
             final_pos[1] = -final_pos[1]
 
