@@ -13,7 +13,7 @@ try:
     for frequency in range (1,6,2):
         while(idx < num_trials):
             if len(prcs) < max_prcs_count:
-                prcs.append(Popen(['python3', 'run_calibration_todorov.py', str(idx)], str(frequency)))
+                prcs.append(Popen(['python3', 'run_calibration_todorov.py', str(idx), str(frequency)]))
                 idx += 1
             else:
                 ret = prcs[0].wait()
