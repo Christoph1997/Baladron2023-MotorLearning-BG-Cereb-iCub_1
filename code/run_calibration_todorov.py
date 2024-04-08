@@ -54,7 +54,7 @@ pop.f = float(sys.argv[2])
 pop.A = 20.
 
 # Prepare save directory
-sub_folder = "/calibration_todorov/run_" + sys.argv[1] + "/"
+sub_folder = "/calibration_todorov/frequency_" + sys.argv[2] + "/run_" + sys.argv[1] + "/"
 folder_net = "./results" + sub_folder
 Path(folder_net).mkdir(parents=True, exist_ok=True)
 
