@@ -209,7 +209,7 @@ def angle_in_plane(v1,v2,n):
     det = v1[0]*v2[1]*n[2] + v2[0]*n[1]*v1[2] + n[0]*v1[1]*v2[2]  - v1[2]*v2[1]*n[0] - v2[2]*n[1]*v1[0] - n[2]*v1[1]*v2[0]
     return np.arctan2(det,dot)
 
-angle_goal = np.degrees( angle_in_plane(initial_position, goal_history[0], perpendicular_normalized) )
+angle_goal = np.degrees(angle_in_plane(initial_position, goal_history[0], perpendicular_normalized) )
 
 cerror = np.zeros(num_baseline_trials+num_trials+num_test_trials)
 
