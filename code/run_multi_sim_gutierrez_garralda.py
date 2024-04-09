@@ -9,9 +9,9 @@ prcs = []
 max_prcs_count = 10
 
 try:
-    idx = 0
     for rotation in range (0,2,1):
         for frequency in range(1,6,2):
+            idx = 0
             while(idx < num_trials):
                 if len(prcs) < max_prcs_count:
                     prcs.append(Popen(['python3', 'run_gutierrez_garralda.py', str(idx), str(frequency), str(rotation)]))

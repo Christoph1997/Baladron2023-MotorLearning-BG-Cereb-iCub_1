@@ -55,7 +55,7 @@ pop.f = float(sys.argv[2])
 pop.A = 20.
 
 # Prepare save directory
-sub_folder = "/gutierrez_garralda/frequency_" + sys.argv[2] + "rotation_" + sys.argv[3] +  "/run_" + sys.argv[1] + "/"
+sub_folder = "/gutierrez_garralda/frequency_" + sys.argv[2] + "_rotation_" + sys.argv[3] +  "/run_" + sys.argv[1] + "/"
 folder_net = "./results" + sub_folder
 Path(folder_net).mkdir(parents=True, exist_ok=True)
 
