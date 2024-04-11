@@ -28,6 +28,7 @@ import importlib
 import sys
 import time
 import numpy as np
+#np.random.seed(int(sys.argv[1])) #set random seed to fixed number
 from numpy import cross, eye, dot
 from scipy.linalg import expm, norm
 from monitoring import Con_Monitor
@@ -35,7 +36,7 @@ from pathlib import Path
 
 # Import ANNarchy
 from ANNarchy import *
-setup(num_threads=2)
+setup(num_threads=4)
 
 # Model
 from reservoir import *
@@ -165,7 +166,7 @@ dh = np.zeros(num_trials)
 # BG controller
 ###################
 print('Training BG')
-goal_history, parameter_history = train_bg(num_goals)
+goal_history, parameter_history = train_bg(num_goals, folder_net)
 
 
 ###################

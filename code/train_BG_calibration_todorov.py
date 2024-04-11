@@ -230,7 +230,7 @@ def rotation_matrix(axis, theta):
 
 
 
-def train_bg(nt):
+def train_bg(nt, folder_net):
     #TODO: initialise goal with a fixed goal in the middle of the work space of the icub --> DONE
     goal = copy.deepcopy(initial_position)
     goal[0] = goal[0] - 0.1
@@ -381,7 +381,7 @@ def train_bg(nt):
             parameter_history[trial-num_trials_test] = pms
             distance_history[trial-num_trials_test] = np.linalg.norm(final_pos-goal)
 
-    np.save('error_history_bg_adapt_' + str(nt) + '.npy',error_history)
+    np.save(folder_net + 'error_history_bg_adapt.npy',error_history)
 
 
     return goals,parameter_history

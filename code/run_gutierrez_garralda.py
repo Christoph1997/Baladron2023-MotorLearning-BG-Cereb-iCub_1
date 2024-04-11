@@ -19,6 +19,7 @@ import importlib
 import sys
 import time
 import numpy as np
+#np.random.seed(int(sys.argv[1])) #set random seed to fixed number
 from numpy import cross, eye, dot
 from scipy.linalg import expm, norm
 from monitoring import Con_Monitor

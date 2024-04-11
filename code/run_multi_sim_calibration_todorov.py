@@ -6,10 +6,11 @@ import sys
 num_trials = 10
 
 prcs = []
+max_frequency = 2
 max_prcs_count = 10
 
 try:
-    for frequency in range (1,6,2):
+    for frequency in range (1,max_frequency,2):
         idx = 0
         while(idx < num_trials):
             if len(prcs) < max_prcs_count:
