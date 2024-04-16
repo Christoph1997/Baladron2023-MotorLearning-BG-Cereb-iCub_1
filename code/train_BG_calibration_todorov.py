@@ -30,6 +30,8 @@ import sys
 import time
 import numpy as np
 import copy
+import icub
+#import Python_libraries.YARP_motor_control as mot
 #compile()
 #setup(num_threads=2)
 
@@ -235,19 +237,22 @@ def train_bg(nt, folder_net):
     goal = copy.deepcopy(initial_position)
     goal[0] = goal[0] - 0.1
 
+    #TODO: change initial CPG-Parameters, so the arm reaches the goal 
+    # Brute force: set CPG to random Parameters and see if the arm is close to the goal with these parameters --> do this until a good set of parameters is found
+    # Inverse kinematics: calculate CPG Parameters from the position of the goal and set them to those values
+
     num_trials_test = 450
 
 
     error_history = np.zeros(num_trials_test+nt+1)
 
     #TODO: change to 4, since we have 4 different conditions for the rotation (5, 10, 15, 20 degrees) --> DONE
-    #TODO: We don#t need this, since we don#t have the strategy condition
-    num_rotations = 0
-    goals = np.zeros((nt+num_rotations,3))
-    parameter_history = np.zeros((nt+num_rotations,4,6))
-    distance_history = np.zeros(nt+num_rotations)
+    #TODO: We don't need this, since we don't have the strategy condition
+    goals = np.zeros((nt,3))
+    parameter_history = np.zeros((nt,4,6))
+    distance_history = np.zeros(nt)
 
-    for trial in range(num_trials_test+nt+num_rotations):
+    for trial in range(num_trials_test+nt):
 
         print("trial", trial)
 
@@ -344,7 +349,7 @@ def train_bg(nt, folder_net):
         for j in range(4):
             RG1_joint = 5+parameter_readout(RG_Pat1[j,:],0,5)
             RG2_joint = 5+parameter_readout(RG_Pat2[j,:],0,5)
-            RG3_joint =  0.001+parameter_readout(RG_Pat3[j,:],-4,4)
+            RG3_joint = 0.001+parameter_readout(RG_Pat3[j,:],-4,4)
             RG4_joint = 5+parameter_readout(RG_Pat4[j,:],0,10)
 
 
@@ -361,8 +366,8 @@ def train_bg(nt, folder_net):
         vel_final = final_pos-initial_position
         nvf = np.linalg.norm(vel_final)
 
-
-        if(nvf>0.3):
+        # TODO: Is the distance between the final_pos and the initial_position for me always to low? Can I increase it? was before 0.3 --> DONE
+        if(nvf>0.05):
             reward.baseline = np.clip(2*(0.5 - np.linalg.norm(final_pos-goal)),0,1.0)
             SNc_put.firing = 1.0
             simulate(100)
@@ -382,6 +387,7 @@ def train_bg(nt, folder_net):
             distance_history[trial-num_trials_test] = np.linalg.norm(final_pos-goal)
 
     np.save(folder_net + 'error_history_bg_adapt.npy',error_history)
+    np.save(folder_net + 'parameter_history_bg_adapt.npy',parameter_history)
 
 
     return goals,parameter_history

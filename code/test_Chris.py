@@ -9,6 +9,8 @@ import sys
 import time
 import numpy as np
 import yarp
+#import yarp.math as ym --> not available for python only in C++
+import copy
 yarp.Network.init()
 
 import sys
@@ -50,7 +52,10 @@ angles[iCubMotor.RShoulderYaw] = -30.
 angles[iCubMotor.RElbow] = 95.
 #angles = np.radians(angles)
 
-
 initial_position = wrist_position_icub(np.radians(angles[joints]))[0:3]
+goal = copy.deepcopy(initial_position)
+goal[0] = goal[0] - 0.1
 
 print(initial_position)
+
+yarp.Network.fini()
