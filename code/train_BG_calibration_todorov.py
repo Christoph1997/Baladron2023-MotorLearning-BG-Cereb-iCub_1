@@ -244,7 +244,7 @@ def train_bg(nt, folder_net):
     num_trials_test = 450
 
 
-    error_history = np.zeros(num_trials_test+nt+1)
+    error_history = np.zeros(num_trials_test+nt)
 
     #TODO: change to 4, since we have 4 different conditions for the rotation (5, 10, 15, 20 degrees) --> DONE
     #TODO: We don't need this, since we don't have the strategy condition

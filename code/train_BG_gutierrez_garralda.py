@@ -235,13 +235,12 @@ def train_bg(nt):
     num_trials_test = 450
 
 
-    error_history = np.zeros(num_trials_test+nt+1)
+    error_history = np.zeros(num_trials_test+nt)
 
     #TODO: We dont need this, since we always tell the model to reach to T1, so we have no strategy condition --> DONE
-    num_rotations = 0
-    goals = np.zeros((nt+num_rotations,3))
-    parameter_history = np.zeros((nt+num_rotations,4,6))
-    distance_history = np.zeros(nt+num_rotations)
+    goals = np.zeros((nt,3))
+    parameter_history = np.zeros((nt,4,6))
+    distance_history = np.zeros(nt)
 
     #TODO: initialise 2 goals with a rotation between them of 30 degrees --> DONE
     goals[0] = copy.deepcopy(initial_position)
@@ -251,7 +250,7 @@ def train_bg(nt):
     rot30 = rotation_matrix( perpendicular_vector  ,np.radians(30))
     goals[1] = np.dot(rot30,goals[0])
 
-    for trial in range(num_trials_test+nt+num_rotations):
+    for trial in range(num_trials_test+nt):
 
         goal_id = trial % nt
         goal = goals[goal_id]
