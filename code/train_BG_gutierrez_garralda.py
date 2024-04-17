@@ -230,7 +230,7 @@ def rotation_matrix(axis, theta):
 
 
 
-def train_bg(nt):
+def train_bg(nt, folder_net):
 
     num_trials_test = 450
 
@@ -367,8 +367,8 @@ def train_bg(nt):
         vel_final = final_pos-initial_position
         nvf = np.linalg.norm(vel_final)
 
-
-        if(nvf>0.3):
+        # TODO: Is the distance between the final_pos and the initial_position for me always to low? Can I increase it? was before 0.3 --> DONE
+        if(nvf>0.05):
             reward.baseline = np.clip(2*(0.5 - np.linalg.norm(final_pos-goal)),0,1.0)
             SNc_put.firing = 1.0
             simulate(100)
@@ -387,7 +387,9 @@ def train_bg(nt):
             parameter_history[trial-num_trials_test] = pms
             distance_history[trial-num_trials_test] = np.linalg.norm(final_pos-goal)
 
-    np.save('error_history_bg_adapt_' + str(nt) + '.npy',error_history)
+    np.save(folder_net + 'error_history_bg_adapt.npy', error_history)
+    np.save(folder_net + 'parameter_history_bg_adapt.npy', parameter_history)
+    np.save(folder_net + 'goals_bg_adapt.npy', goals)
 
 
     return goals,parameter_history

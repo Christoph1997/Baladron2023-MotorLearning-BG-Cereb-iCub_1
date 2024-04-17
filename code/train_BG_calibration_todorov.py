@@ -388,6 +388,7 @@ def train_bg(nt, folder_net):
 
     np.save(folder_net + 'error_history_bg_adapt.npy',error_history)
     np.save(folder_net + 'parameter_history_bg_adapt.npy',parameter_history)
+    np.save(folder_net + 'goals_bg_adapt.npy',goals)
 
 
     return goals,parameter_history

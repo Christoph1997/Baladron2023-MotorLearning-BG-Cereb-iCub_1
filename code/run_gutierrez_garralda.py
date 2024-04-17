@@ -168,7 +168,7 @@ dh = np.zeros(num_trials)
 # BG controller
 ###################
 print('Training BG')
-goal_history, parameter_history = train_bg(num_goals)
+goal_history, parameter_history = train_bg(num_goals, folder_net)
 
 
 ###################

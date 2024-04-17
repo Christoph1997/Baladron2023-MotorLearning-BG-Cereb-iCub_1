@@ -6,7 +6,7 @@ import sys
 num_trials = 10
 
 prcs = []
-max_frequency = 6
+max_frequency = 2
 max_prcs_count = 10
 
 try:
