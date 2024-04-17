@@ -235,7 +235,7 @@ def rotation_matrix(axis, theta):
 def train_bg(nt, folder_net):
     #TODO: initialise goal with a fixed goal in the middle of the work space of the icub --> DONE
     goal = copy.deepcopy(initial_position)
-    goal[0] = goal[0] - 0.1
+    goal[0] = goal[0] - 0.2
 
     #TODO: change initial CPG-Parameters, so the arm reaches the goal 
     # Brute force: set CPG to random Parameters and see if the arm is close to the goal with these parameters --> do this until a good set of parameters is found
