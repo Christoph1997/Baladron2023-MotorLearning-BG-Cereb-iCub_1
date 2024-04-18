@@ -319,3 +319,29 @@ con_monitor.save_cons(folder=folder_net)
 # # save network connectivity
 # for proj in projections():
 #     proj.save_connectivity(filename=folder_net + 'weights_' + proj.name + '.npz')
+
+#save all the reached locations for the actions
+final_pos_bg = []
+for action in range (num_actions):
+    Intermediate[action].baseline = 1.0
+
+    pms = np.zeros((4,6))
+    for j in range(4):
+        RG1_joint = 5+parameter_readout(RG_Pat1[j,:],0,5)
+        RG2_joint = 5+parameter_readout(RG_Pat2[j,:],0,5)
+        RG3_joint = 0.001+parameter_readout(RG_Pat3[j,:],-4,4)
+        RG4_joint = 5+parameter_readout(RG_Pat4[j,:],0,10)
+
+
+        PF1_joint = 0.001+parameter_readout(PF_Pat1[j,:],0,2.0)
+        PF2_joint = 0.001+parameter_readout(PF_Pat2[j,:],0,2.0)
+
+
+        pms[j] = [RG1_joint,RG2_joint,RG3_joint,RG4_joint,PF1_joint,PF2_joint]
+
+    final_pos = execute_movement(pms,0,' ')
+    final_pos_bg.append(final_pos)
+
+    Intermediate[action].baseline = 0.0
+
+np.save(folder_net + 'final_position_bg_movement.npy', final_pos_bg) # All final position of all movements

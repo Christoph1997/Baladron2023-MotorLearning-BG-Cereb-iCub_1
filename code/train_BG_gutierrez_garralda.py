@@ -232,7 +232,7 @@ def rotation_matrix(axis, theta):
 
 def train_bg(nt, folder_net):
 
-    num_trials_test = 450
+    num_trials_test = num_actions - nt #450
 
 
     error_history = np.zeros(num_trials_test+nt)
@@ -251,9 +251,6 @@ def train_bg(nt, folder_net):
     goals[1] = np.dot(rot30,goals[0])
 
     for trial in range(num_trials_test+nt):
-
-        goal_id = trial % nt
-        goal = goals[goal_id]
 
         print("trial", trial)
 
@@ -302,8 +299,14 @@ def train_bg(nt, folder_net):
         vel_d = [0,0,0]
 
         #TODO: Take out old goal --> DONE
-        #goal = np.zeros(3)
-        #goal = random_goal_icub(initial_position)
+        goal = np.zeros(3)
+        goal = random_goal_icub(initial_position)
+
+        #TODO: initialise goal with a fixed goal in the middle of the work space of the icub for the two trials --> DONE
+        if (trial == (num_actions-2)):
+            goal = goals[0]
+        elif(trial == (num_actions-1)):
+            goal = goals[1]
 
         #TODO: Adapt all 4 conditions, so that the network knows where the actual goal is --> DONE
         """
@@ -332,7 +335,8 @@ def train_bg(nt, folder_net):
         simulate(200)
 
 
-        ran_prim = np.random.randint(120)
+        #TODO: set chosen actions so it goes through all the possible 120 actions starting with the first one --> DONE
+        ran_prim = trial  #np.random.randint(120)
         if(np.max(PM.r)<0.05):
             Intermediate[ran_prim].baseline = 1.0
             PM[ran_prim].baseline = 1.0
@@ -369,7 +373,7 @@ def train_bg(nt, folder_net):
 
         # TODO: Is the distance between the final_pos and the initial_position for me always to low? Can I increase it? was before 0.3 --> DONE
         if(nvf>0.05):
-            reward.baseline = np.clip(2*(0.5 - np.linalg.norm(final_pos-goal)),0,1.0)
+            reward.baseline = 1.0 #np.clip(2*(0.5 - np.linalg.norm(final_pos-goal)),0,1.0)
             SNc_put.firing = 1.0
             simulate(100)
             SNc_put.firing = 0.0

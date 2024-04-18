@@ -341,7 +341,7 @@ def load_connectivity_dense(filename):
 
 prename = '40prim2_'
 
-CortexStrD1_putamen = Projection(pre=Cortical_input,post=StrD1_putamen,target='exc',synapse=DAPostCovarianceNoThreshold)# DAPreCovariance_inhibitory)
+CortexStrD1_putamen = Projection(pre=Cortical_input,post=StrD1_putamen,target='exc',synapse=DAPostCovarianceNoThreshold,name="CortexStrD1")# DAPreCovariance_inhibitory)
 CortexStrD1_putamen.connect_all_to_all(weights=0)  #Uniform(1.0,1.1)) #weights=0)
 CortexStrD1_putamen.tau = 2200 #2200  
 CortexStrD1_putamen.regularization_threshold =  1.200 #2.0#1500 
