@@ -195,8 +195,10 @@ def random_goal_icub(initial_position):
         current_angles[iCubMotor.RShoulderYaw] = clip(angles[iCubMotor.RShoulderYaw] + np.random.normal(0,20), -37., 80.)
         current_angles[iCubMotor.RElbow] =  clip(angles[iCubMotor.RElbow] + np.random.normal(0,20), 15.5, 106.)
         current_angles = np.radians(current_angles)
+        print("done")
         goal = wrist_position_icub(current_angles[joints])[0:3]
         nvd = np.linalg.norm(goal-initial_position)
+        print("done2")
     return goal
 
 def random_goal(initial_position):
@@ -299,12 +301,12 @@ def train_bg(nt, folder_net):
         #test random angles instead of position
         nvd = 0.0
         vel_d = [0,0,0]
-	print("1")
+        print("0")
 
         #TODO: Take out old goal --> DONE
         goal = np.zeros(3)
         goal = random_goal_icub(initial_position)
-	print("0")
+        print("1")
 
         #TODO: initialise goal with a fixed goal in the middle of the work space of the icub for the last trial --> DONE
         if (trial == (num_actions-1)):
