@@ -189,7 +189,7 @@ def random_goal_icub(initial_position):
     nvd = 0
     goal = [0,0,0]
     current_angles = np.copy(angles)
-    while(nvd<0.15):#(nvd<0.15): 0.15 or 0.5
+    while(nvd<0.15):#(nvd<0.15): 0.15 or 0.5 --> had to change to 0.15, since my initial_position is in the middle of my workspace
         current_angles[iCubMotor.RShoulderPitch] = clip(angles[iCubMotor.RShoulderPitch] + np.random.normal(0,20), -95., 10.)
         current_angles[iCubMotor.RShoulderRoll] = clip(angles[iCubMotor.RShoulderRoll] + np.random.normal(0,20), 0., 160.8)
         current_angles[iCubMotor.RShoulderYaw] = clip(angles[iCubMotor.RShoulderYaw] + np.random.normal(0,20), -37., 80.)
@@ -197,7 +197,6 @@ def random_goal_icub(initial_position):
         current_angles = np.radians(current_angles)
         goal = wrist_position_icub(current_angles[joints])[0:3]
         nvd = np.linalg.norm(goal-initial_position)
-        print(nvd)
     return goal
 
 def random_goal(initial_position):
@@ -300,12 +299,10 @@ def train_bg(nt, folder_net):
         #test random angles instead of position
         nvd = 0.0
         vel_d = [0,0,0]
-        print("0")
 
         #TODO: Take out old goal --> DONE
         goal = np.zeros(3)
         goal = random_goal_icub(initial_position)
-        print("1")
 
         #TODO: initialise goal with a fixed goal in the middle of the work space of the icub for the last trial --> DONE
         if (trial == (num_actions-1)):
@@ -397,6 +394,8 @@ def train_bg(nt, folder_net):
     np.save(folder_net + 'error_history_bg_adapt.npy',error_history)
     np.save(folder_net + 'parameter_history_bg_adapt.npy',parameter_history)
     np.save(folder_net + 'goals_bg_adapt.npy',goals)
+    np.save(folder_net + 'initial_position_bg_adapt.npy',initial_position)
+
 
 
     return goals,parameter_history
