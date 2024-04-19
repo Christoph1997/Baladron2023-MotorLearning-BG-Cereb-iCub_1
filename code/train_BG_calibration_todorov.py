@@ -195,10 +195,9 @@ def random_goal_icub(initial_position):
         current_angles[iCubMotor.RShoulderYaw] = clip(angles[iCubMotor.RShoulderYaw] + np.random.normal(0,20), -37., 80.)
         current_angles[iCubMotor.RElbow] =  clip(angles[iCubMotor.RElbow] + np.random.normal(0,20), 15.5, 106.)
         current_angles = np.radians(current_angles)
-        print("done")
         goal = wrist_position_icub(current_angles[joints])[0:3]
         nvd = np.linalg.norm(goal-initial_position)
-        print("done2")
+        print(nvd)
     return goal
 
 def random_goal(initial_position):
