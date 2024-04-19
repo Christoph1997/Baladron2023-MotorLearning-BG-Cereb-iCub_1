@@ -201,7 +201,7 @@ def random_goal(initial_position):
     nvd = 0
     goal = [0,0,0]
     current_angles = np.copy(angles)
-    while(nvd<0.5):#(nvd<0.15): 0.15 or 0.5
+    while(nvd<0.15):#(nvd<0.15): 0.15 or 0.5
         current_angles[iCubMotor.LShoulderPitch] = angles[iCubMotor.LShoulderPitch] + np.random.normal(0,20)
         current_angles[iCubMotor.LShoulderRoll] = angles[iCubMotor.LShoulderRoll] + np.random.normal(0,20)
         current_angles[iCubMotor.LShoulderYaw] = angles[iCubMotor.LShoulderYaw] + np.random.normal(0,20)
