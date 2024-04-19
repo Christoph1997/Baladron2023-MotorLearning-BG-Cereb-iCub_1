@@ -299,10 +299,12 @@ def train_bg(nt, folder_net):
         #test random angles instead of position
         nvd = 0.0
         vel_d = [0,0,0]
+	print("1")
 
         #TODO: Take out old goal --> DONE
         goal = np.zeros(3)
         goal = random_goal_icub(initial_position)
+	print("0")
 
         #TODO: initialise goal with a fixed goal in the middle of the work space of the icub for the last trial --> DONE
         if (trial == (num_actions-1)):
