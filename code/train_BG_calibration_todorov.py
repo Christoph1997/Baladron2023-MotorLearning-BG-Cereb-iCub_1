@@ -250,6 +250,7 @@ def train_bg(nt, folder_net):
     #TODO: We don't need this, since we don't have the strategy condition
     goals = np.zeros((nt,3))
     all_goals = []
+    final_position_bg = []
     parameter_history = np.zeros((nt,4,6))
     distance_history = np.zeros(nt)
 
@@ -374,6 +375,8 @@ def train_bg(nt, folder_net):
         vel_final = final_pos-initial_position
         nvf = np.linalg.norm(vel_final)
 
+        final_position_bg.append(final_pos)
+
         # TODO: Is the distance between the final_pos and the initial_position for me always to low? Can I increase it? was before 0.3 --> DONE
         if(nvf>0.05):
             reward.baseline = 1.0 #np.clip(2*(0.5 - np.linalg.norm(final_pos-goal)),0,1.0)
@@ -399,6 +402,7 @@ def train_bg(nt, folder_net):
     np.save(folder_net + 'goals_bg_adapt.npy',goals)
     np.save(folder_net + 'initial_position_bg_adapt.npy',initial_position)
     np.save(folder_net + 'all_goals_bg_adapt.npy',all_goals)
+    np.save(folder_net + 'final_pos_bg_adapt.npy',final_position_bg)
 
 
 
