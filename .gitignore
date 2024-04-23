@@ -137,5 +137,5 @@ iCubMotor*
 *.pkl
 
 # results
-*.npy
+# *.npy
 *.npz
