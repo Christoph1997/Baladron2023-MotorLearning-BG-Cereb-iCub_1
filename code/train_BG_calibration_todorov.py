@@ -249,6 +249,7 @@ def train_bg(nt, folder_net):
     #TODO: change to 4, since we have 4 different conditions for the rotation (5, 10, 15, 20 degrees) --> DONE
     #TODO: We don't need this, since we don't have the strategy condition
     goals = np.zeros((nt,3))
+    all_goals = []
     parameter_history = np.zeros((nt,4,6))
     distance_history = np.zeros(nt)
 
@@ -308,6 +309,8 @@ def train_bg(nt, folder_net):
         if (trial == (num_actions-1)):
             goal = copy.deepcopy(initial_position)
             goal[0] = goal[0] - 0.1
+
+        all_goals.append(goal)
 
         #TODO: Adapt all 4 conditions, so that the network knows where the actual goal is --> DONE
         """
@@ -395,6 +398,7 @@ def train_bg(nt, folder_net):
     np.save(folder_net + 'parameter_history_bg_adapt.npy',parameter_history)
     np.save(folder_net + 'goals_bg_adapt.npy',goals)
     np.save(folder_net + 'initial_position_bg_adapt.npy',initial_position)
+    np.save(folder_net + 'all_goals_bg_adapt.npy',all_goals)
 
 
 

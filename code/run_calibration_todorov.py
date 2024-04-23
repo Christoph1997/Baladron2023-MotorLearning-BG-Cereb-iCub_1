@@ -404,7 +404,7 @@ for action in range (num_actions):
     final_pos = execute_movement(pms,0,' ')
     final_pos_bg.append(final_pos)
 
-    Intermediate[action].baseline = 0.0
+    Intermediate.baseline = 0.0
 
 np.save(folder_net + 'final_position_bg_movement.npy', final_pos_bg) # All final position of all movements
 
