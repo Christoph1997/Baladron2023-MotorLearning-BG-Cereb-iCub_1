@@ -386,6 +386,7 @@ con_monitor.save_cons(folder=folder_net)
 final_pos_bg = []
 for action in range (num_actions):
     Intermediate[action].baseline = 1.0
+    PM[action].baseline = 1.0
 
     pms = np.zeros((4,6))
     for j in range(4):
