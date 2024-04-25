@@ -245,7 +245,7 @@ for t in range(num_baseline_trials+num_trials+num_test_trials):
     output = rec['r'][-200:,-24:]
     output = np.mean(output,axis=0) * 2.0
 
-    current_params =  np.copy(parameter_history[goal_id])
+    current_params = np.copy(parameter_history[goal_id])
 
     # Turn this on for simulations with strategy
     # we only learn in the cerebellum for the adaptation

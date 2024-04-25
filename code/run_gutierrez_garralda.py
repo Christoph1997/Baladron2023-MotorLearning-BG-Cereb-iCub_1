@@ -72,7 +72,7 @@ Path(directory_ann).mkdir(parents=True, exist_ok=True)
 compile(directory=directory_ann)
 
 # init monitor for tracking weight changes
-con_monitor = Con_Monitor([Wi, Wrec])
+con_monitor = Con_Monitor([Wi, Wrec, CortexStrD1_putamen])
 con_monitor.extract_weights()
 
 # Initialize robot connection
