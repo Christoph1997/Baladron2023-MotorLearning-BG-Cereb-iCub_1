@@ -18,10 +18,11 @@ Script for the adaptation task.
 # Parameters
 num_goals = 1 # Number of goals. Fixed to a certain position with 0.1m away from initial postion in x-direction
 num_baseline_trials = 700 # Number of trials for baseline phases + 500 training trials
-num_rotation_trials = 16 # Number of rotation trials for each visuomotor adaptation
+num_rotation_trials = 16 #TODO: multiply by 3 Number of rotation trials for each visuomotor adaptation
 num_visuomotor_adaption = 26 #Number of visuomotor adaptations
 num_test_trials = 34 # Number of test trials at the end to finish
 #TODO: Delete strategy and rotation, since they are always 1 --> DONE
+all_params_change = []
 
 # Imports
 import importlib
@@ -277,6 +278,7 @@ for t in range(num_baseline_trials+num_trials+num_test_trials):
     """
 
     current_params+=output.reshape((4,6))
+    all_params_change.append(output.reshape((4,6)))
 
     s = 0
     pf = ''
@@ -369,7 +371,7 @@ for t in range(num_baseline_trials+num_trials+num_test_trials):
 np.save(folder_net + 'angle3.npy', angle_history3) # Directional error
 np.save(folder_net + 'goals_angle.npy', angle_goal) # Angle Goal
 np.save(folder_net + 'cerror.npy', cerror) # Aiming error
-
+np.save(folder_net + 'parameter_change_reservoir.npy', all_params_change) # Parameter changed in reservoir
 
 # save goals
 np.save(folder_net + 'goals.npy', goal_history)
@@ -386,7 +388,8 @@ con_monitor.save_cons(folder=folder_net)
 final_pos_bg = []
 for action in range (num_actions):
     Intermediate[action].baseline = 1.0
-    PM[action].baseline = 1.0
+    #PM[action].baseline = 1.0
+    simulate(150)
 
     pms = np.zeros((4,6))
     for j in range(4):

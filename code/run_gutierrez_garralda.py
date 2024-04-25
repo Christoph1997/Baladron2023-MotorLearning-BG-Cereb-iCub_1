@@ -34,6 +34,7 @@ num_rotation_trials = 25 # Number of rotation trials for each visuomotor adaptat
 num_test_trials = 25 # Number of test trials at the end to finish
 strategy = 0 # Set to 1 to simulate a condition which includes an explicit instruction
 rotation = int(sys.argv[3]) # Set to 1 to simulate a condition in which the 30-degree shift perturbation is included and to 0 for the x-reflection perturbation
+all_params_change = []
 
 # Import ANNarchy
 from ANNarchy import *
@@ -254,6 +255,7 @@ for t in range(num_baseline_trials+num_trials+num_test_trials):
     #TODO: We don't need the if-statement for the strategy, since we only have one goal and strategy is always 0 --> DONE
 
     current_params+=output.reshape((4,6))
+    all_params_change.append(output.reshape((4,6)))
 
     s = 0
     pf = ''
@@ -307,7 +309,7 @@ for t in range(num_baseline_trials+num_trials+num_test_trials):
 
 np.save(folder_net + 'angle3.npy', angle_history3) # Directional error
 np.save(folder_net + 'cerror.npy', cerror) # Aiming error
-
+np.save(folder_net + 'parameter_change_reservoir.npy', all_params_change) # Parameter changed in reservoir
 
 # save goals
 np.save(folder_net + 'goals.npy', goal_history)
@@ -324,6 +326,7 @@ con_monitor.save_cons(folder=folder_net)
 final_pos_bg = []
 for action in range (num_actions):
     Intermediate[action].baseline = 1.0
+    simulate(150)
 
     pms = np.zeros((4,6))
     for j in range(4):

@@ -189,7 +189,7 @@ def random_goal_icub(initial_position):
     nvd = 0
     goal = [0,0,0]
     current_angles = np.copy(angles)
-    while(nvd<0.15):#(nvd<0.15): 0.15 or 0.5 --> had to change to 0.15, since my initial_position is in the middle of my workspace
+    while(nvd<0.1):#(nvd<0.15): 0.15 or 0.5 --> had to change to 0.15, since my initial_position is in the middle of my workspace
         current_angles[iCubMotor.RShoulderPitch] = clip(angles[iCubMotor.RShoulderPitch] + np.random.normal(0,20), -95., 10.)
         current_angles[iCubMotor.RShoulderRoll] = clip(angles[iCubMotor.RShoulderRoll] + np.random.normal(0,20), 0., 160.8)
         current_angles[iCubMotor.RShoulderYaw] = clip(angles[iCubMotor.RShoulderYaw] + np.random.normal(0,20), -37., 80.)
