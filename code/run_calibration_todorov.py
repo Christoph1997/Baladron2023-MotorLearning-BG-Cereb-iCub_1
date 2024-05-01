@@ -18,7 +18,7 @@ Script for the adaptation task.
 # Parameters
 num_goals = 1 # Number of goals. Fixed to a certain position with 0.1m away from initial postion in x-direction
 num_baseline_trials = 700 # Number of trials for baseline phases + 500 training trials
-num_rotation_trials = 48 #TODO: multiply by 3 Number of rotation trials for each visuomotor adaptation
+num_rotation_trials = 48 #TODO: multiply by 3: Number of rotation trials for each visuomotor adaptation
 num_visuomotor_adaption = 26 #Number of visuomotor adaptations
 num_test_trials = 34 # Number of test trials at the end to finish
 #TODO: Delete strategy and rotation, since they are always 1 --> DONE
@@ -56,7 +56,7 @@ pop.f = float(sys.argv[2])
 pop.A = 20.
 
 # Prepare save directory
-sub_folder = "/calibration_todorov/frequency_" + sys.argv[2] + "/run_" + sys.argv[1] + "/"
+sub_folder = "/calibration_todorov/frequency_" + sys.argv[2] + "trials_48/run_" + sys.argv[1] + "/"
 folder_net = "./results" + sub_folder
 Path(folder_net).mkdir(parents=True, exist_ok=True)
 
