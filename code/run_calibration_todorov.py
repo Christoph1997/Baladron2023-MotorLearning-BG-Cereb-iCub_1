@@ -18,8 +18,8 @@ Script for the adaptation task.
 # Parameters
 num_goals = 1 # Number of goals. Fixed to a certain position with 0.1m away from initial postion in x-direction
 num_baseline_trials = 700 # Number of trials for baseline phases + 500 training trials
-num_rotation_trials = 48 #TODO: multiply by 3: Number of rotation trials for each visuomotor adaptation
-num_visuomotor_adaption = 26 #Number of visuomotor adaptations
+num_rotation_trials = 16 #TODO: multiply by 3: Number of rotation trials for each visuomotor adaptation
+num_visuomotor_adaptation = 26 #Number of visuomotor adaptations
 num_test_trials = 34 # Number of test trials at the end to finish
 #TODO: Delete strategy and rotation, since they are always 1 --> DONE
 all_params_change = []
@@ -29,7 +29,7 @@ import importlib
 import sys
 import time
 import numpy as np
-#np.random.seed(int(sys.argv[1])) #set random seed to fixed number
+np.random.seed(int(sys.argv[1])) #set random seed to fixed number
 from numpy import cross, eye, dot
 from scipy.linalg import expm, norm
 from monitoring import Con_Monitor
@@ -51,9 +51,9 @@ from CPG_lib.MLMPCPG.myPloting import *
 from CPG_lib.MLMPCPG.SetTiming import *
 
 # update frequeny, amplitude and learnrate of the reservoir
-Wrec.eta = 0.8
-pop.f = float(sys.argv[2])
-pop.A = 20.
+Wrec.eta = float(sys.argv[2])
+pop.f = float(sys.argv[3])
+pop.A = float(sys.argv[4])
 
 # Prepare save directory
 sub_folder = "/calibration_todorov/frequency_" + sys.argv[2] + "trials_48/run_" + sys.argv[1] + "/"
@@ -155,7 +155,7 @@ a = [0,0,0]
 pop.enable()
 
 #TODO: Number of total visuomotor adaptation trials --> DONE
-num_trials = num_visuomotor_adaption * num_rotation_trials
+num_trials = num_visuomotor_adaptation * num_rotation_trials
 
 error_history = np.zeros(num_baseline_trials+num_trials+num_test_trials)
 angle_history3 = np.zeros(num_baseline_trials+num_trials+num_test_trials)
