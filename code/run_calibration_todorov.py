@@ -56,7 +56,7 @@ pop.f = float(sys.argv[3])
 pop.A = float(sys.argv[4])
 
 # Prepare save directory
-sub_folder = "/calibration_todorov/frequency_" + sys.argv[2] + "trials_48/run_" + sys.argv[1] + "/"
+sub_folder = "/calibration_todorov/eta_" + sys.argv[2] + "_frequency_" + sys.argv[3] + "_amplitude_" + sys.argv[4] + "/run_" + sys.argv[1] + "/"
 folder_net = "./results" + sub_folder
 Path(folder_net).mkdir(parents=True, exist_ok=True)
 
